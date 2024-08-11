@@ -27,7 +27,7 @@ export class AppComponent {
       this.message += m.message ;
       if(index < result.length - 1){
         
-        this.message += '&&'; ;
+        this.message += '&&'; 
       }
       index++;
     }
