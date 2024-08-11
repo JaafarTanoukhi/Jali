@@ -22,8 +22,14 @@ export class AppComponent {
     })
     console.log(response);
     const result = await response.json();
+    let index=0;
     for(const m of result){
-      this.message += m.message + ' && ';
+      this.message += m.message ;
+      if(index < result.length - 1){
+        
+        this.message += '&&'; 
+      }
+      index++;
     }
   }
 }
