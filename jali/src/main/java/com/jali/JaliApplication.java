@@ -25,9 +25,9 @@ public class JaliApplication {
 		repository.deleteAll();
 		log.info("Started Working Here");
       // save a few Greetings
-      repository.save(new Greeting("Hello World"));
-      repository.save(new Greeting("Sup G"));
-      repository.save(new Greeting("salam alaykom world"));
+      repository.save(new Greeting("Hello paris"));
+      repository.save(new Greeting("Sup bro"));
+      repository.save(new Greeting("salam alaykom "));
 	  
       // fetch all Greetings
       log.info("Greetings found with findAll():");
