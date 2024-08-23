@@ -57,10 +57,24 @@ public class ApiMetaDataHelper {
     private class Endpoint {
 
         public String functionName = null;
-        public String endpointUrl = null;
+        public String url = null;
         public String method = null;
         public String returnType = null;
-        public List<Field> endpointParamters = new ArrayList<>();
+        public List<Field> parameters = new ArrayList<>();
+    }
+
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    private class ObjectInterface{
+        public String interfaceName = "";
+        public List<Field> fields = new ArrayList<>();
+
+        public ObjectInterface(){
+
+        }
+        public ObjectInterface(String interfaceName, List<Field> fields) {
+            this.interfaceName = interfaceName;
+            this.fields = fields;    
+        }
     }
 
     @JsonInclude(JsonInclude.Include.NON_NULL)
@@ -72,8 +86,7 @@ public class ApiMetaDataHelper {
 
     @JsonInclude(JsonInclude.Include.NON_NULL)
     private class ModelsIntermediate {
-
-        public Map<String, List<Field>> fieldsMap = new HashMap<>();
+        public List<ObjectInterface> interfaces = new ArrayList<>();
     }
 
     @JsonInclude(JsonInclude.Include.NON_NULL)
@@ -104,7 +117,7 @@ public class ApiMetaDataHelper {
 
     private Map<String, SourceCode> readSource() {
         HashMap<String, SourceCode> sourceMap = new HashMap<>();
-        File directory = new File("/home/jafar/Jali/jali/src/main/java/com/jali/endpoints"); // Update with your directory path
+        File directory = new File("/home/jafar/Jali/jali-server/src/main/java/com/jali/endpoints"); // Update with your directory path
 
         if (directory.isDirectory()) {
             File[] folders = directory.listFiles(File::isDirectory);
@@ -187,13 +200,13 @@ public class ApiMetaDataHelper {
                         endpoint.returnType = method.getTypeAsString();
 
                         if (annotation.isSingleMemberAnnotationExpr()) {
-                            endpoint.endpointUrl = annotation.toSingleMemberAnnotationExpr().get().getMemberValue().toString().replaceAll("\"", "");
+                            endpoint.url = annotation.toSingleMemberAnnotationExpr().get().getMemberValue().toString().replaceAll("\"", "");
                         } else {
-                            endpoint.endpointUrl = "";
+                            endpoint.url = "";
                         }
 
                         for (Parameter param : method.getParameters()) {
-                            endpoint.endpointParamters.add(new Field(param.getTypeAsString(), param.getNameAsString()));
+                            endpoint.parameters.add(new Field(param.getTypeAsString(), param.getNameAsString()));
                         }
 
                         controller.endpoints.add(endpoint);
@@ -223,7 +236,7 @@ public class ApiMetaDataHelper {
                     fields.add(new Field(var.getTypeAsString(), var.getNameAsString()));
                 }
             }
-            models.fieldsMap.put(clazz.getNameAsString(), fields);
+            models.interfaces.add(new ObjectInterface(clazz.getNameAsString(), fields));
         });
 
         return models;
