@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 
+
 @Component({
   selector: 'app-root',
   standalone: true,
@@ -16,20 +17,13 @@ export class AppComponent {
   }
 
  async fetchMessage(){
-    const response = await fetch('http://localhost:8080/greetings',{
+    const response = await fetch('http://localhost:8080/api/metadata/describe',{
       mode : 'cors',
       method :'get'
     })
     console.log(response);
-    const result = await response.json();
-    let index=0;
-    for(const m of result){
-      this.message += m.message ;
-      if(index < result.length - 1){
-        
-        this.message += '&&'; 
-      }
-      index++;
-    }
+    const result = await response.json()
+    console.log(result);
+    this.message += result;
   }
 }
