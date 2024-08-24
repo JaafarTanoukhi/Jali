@@ -22,9 +22,9 @@ public class AuthController {
 
     // Create a new auth record
     @PostMapping
-    public ResponseEntity<Integer> createAuth(@RequestBody Integer auth) {
-        authData.add(auth);
-        return new ResponseEntity<>(auth, HttpStatus.CREATED);
+    public ResponseEntity<SingnupResponse> createAuth(@RequestBody SignupBody auth ) {
+        // authData.add(auth);
+        return ResponseEntity.ok(new SingnupResponse())
     }
 
     // Get all auth records

@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
+import { createAuth } from '../java/Auth';
 
 
 @Component({
@@ -17,13 +18,6 @@ export class AppComponent {
   }
 
  async fetchMessage(){
-    const response = await fetch('http://localhost:8080/api/metadata/describe',{
-      mode : 'cors',
-      method :'get'
-    })
-    console.log(response);
-    const result = await response.json()
-    console.log(result);
-    this.message += result;
-  }
+  const returnedNumber = await createAuth(12);
+ }
 }
