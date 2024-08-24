@@ -87,3 +87,6 @@ export async function deleteAuth(id : number):Promise<void | null>
         return null;
     }
 
+interface AuthModels{
+        
+    }

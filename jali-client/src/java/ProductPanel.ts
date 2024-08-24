@@ -7,3 +7,6 @@ export const useless = 0;
 const CONTROLLER_BASE_ENDPOINT = 'placeholder';
 
 
+interface ProductPanelModels{
+        
+    }

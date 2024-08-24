@@ -138,6 +138,22 @@ function toTsType(javaType) {
 function generateModelsInterfaces(models){
     let source = '';
     
+    for(const objInterface of models.interfaces){
+        source += generateInterface(objInterface);
+    }
+    return source;
+}
+
+function generateInterface(objInterface){
+    let source = '';
+
+    const fields = objInterface.fields.map((field)=>`${field.fieldName} : ${field.fieldType};`).join(';\n');
+
+    source += 
+    `interface ${objInterface.interfaceName}{
+        ${fields}
+    }`
+
     return source;
 }
 
