@@ -229,7 +229,8 @@ public class ApiMetaDataHelper {
             return models;
         }
 
-        parsedSource.findAll(ClassOrInterfaceDeclaration.class).forEach(clazz -> {
+        parsedSource.findAll(ClassOrInterfaceDeclaration.class).get(0)
+        .findAll(ClassOrInterfaceDeclaration.class).forEach(clazz -> {
             List<Field> fields = new ArrayList<Field>();
             for (FieldDeclaration field : clazz.getFields()) {
                 for (VariableDeclarator var : field.getVariables()) {
