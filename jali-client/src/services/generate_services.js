@@ -141,7 +141,7 @@ function generateModelsInterfaces(models){
     let source = '';
     
     for(const objInterface of models.interfaces){
-        source += generateInterface(objInterface);
+    source += generateInterface(objInterface);
         source += newLines(2);
     }
     return source;

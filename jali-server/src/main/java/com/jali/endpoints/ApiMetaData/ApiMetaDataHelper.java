@@ -60,7 +60,8 @@ public class ApiMetaDataHelper {
         public String url = null;
         public String method = null;
         public String returnType = null;
-        public List<Field> parameters = new ArrayList<>();
+        public List<Field> pathParameters = new ArrayList<>();
+        public List<Field> bodyParameters = new ArrayList<>();
     }
 
     @JsonInclude(JsonInclude.Include.NON_NULL)
@@ -206,7 +207,15 @@ public class ApiMetaDataHelper {
                         }
 
                         for (Parameter param : method.getParameters()) {
-                            endpoint.parameters.add(new Field(param.getTypeAsString(), param.getNameAsString()));
+                            if(param.getAnnotationByName("PathVariable").isPresent()){
+                                endpoint.pathParameters.add(new Field(param.getTypeAsString(), param.getNameAsString()));
+                            }
+                            else if(param.getAnnotationByName("RequestBody").isPresent()){
+                                endpoint.bodyParameters.add(new Field(param.getTypeAsString(), param.getNameAsString()));
+                            }
+                            else{
+                                throw new RuntimeException("REPORT BUG");
+                            }
                         }
 
                         controller.endpoints.add(endpoint);
