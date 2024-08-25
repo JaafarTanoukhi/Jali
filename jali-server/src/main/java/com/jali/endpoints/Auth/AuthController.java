@@ -24,7 +24,7 @@ public class AuthController {
     @PostMapping
     public ResponseEntity<SingnupResponse> createAuth(@RequestBody SignupBody auth ) {
         // authData.add(auth);
-        return ResponseEntity.ok(new SingnupResponse())
+        return ResponseEntity.ok(new SingnupResponse());
     }
 
     // Get all auth records
