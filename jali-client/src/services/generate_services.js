@@ -70,8 +70,8 @@ function generateEndpointFunctions(controller){
 
 
 function generateEndpointFunc(baseEndpointVarName, endpoint){
-    const parameters = endpoint.parameters.map((param)=> `${param.fieldName} : ${toTsType(param.fieldType)}`).join(',');
-    const parameterNames = endpoint.parameters.map((param)=>param.fieldName).join(',');
+    const parameters = [...endpoint.bodyParameters.map((param)=> `${param.fieldName} : ${toTsType(param.fieldType)}`), ...endpoint.pathParameters.map((param)=> `${param.fieldName} : ${toTsType(param.fieldType)}`)].join(',');
+    const parameterNames = endpoint.bodyParameters.map((param)=>param.fieldName).join(',');
     
     return `export async function ${endpoint.functionName}(${parameters}):${toTsType(endpoint.returnType)}
     {
@@ -141,7 +141,7 @@ function generateModelsInterfaces(models){
     let source = '';
     
     for(const objInterface of models.interfaces){
-        source += generateInterface(objInterface);
+    source += generateInterface(objInterface);
         source += newLines(2);
     }
     return source;
