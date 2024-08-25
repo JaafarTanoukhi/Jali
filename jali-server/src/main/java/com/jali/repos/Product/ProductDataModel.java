@@ -1,31 +1,31 @@
 package com.jali.repos.Product;
 
 import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.Table;
 
 @Entity
+@Table(name = "Product")
 public class ProductDataModel {
     
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    Long Id;
+    String Id;
     String name;
     Integer price;
 
     public ProductDataModel(){}
 
-    public ProductDataModel(String name, Integer price) {
+    public ProductDataModel(String id, String name, Integer price) {
+        Id = id;
         this.name = name;
         this.price = price;
     }
 
-    public Long getId() {
+    public String getId() {
         return Id;
     }
 
-    public void setId(Long id) {
+    public void setId(String id) {
         Id = id;
     }
 

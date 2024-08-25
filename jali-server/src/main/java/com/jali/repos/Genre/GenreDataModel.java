@@ -1,33 +1,33 @@
 package com.jali.repos.Genre;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
 import java.io.Serializable;
 
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
+
 @Entity
+@Table(name = "Genre")
 public class GenreDataModel implements Serializable {
     @Id
-    @GeneratedValue( strategy = GenerationType.IDENTITY)
-    Long Id;
+    String Id;
     String name;
 
 
     public GenreDataModel(){}
+
     
 
-    public GenreDataModel(String name) {
+    public GenreDataModel(String id, String name) {
+        Id = id;
         this.name = name;
     }
 
-
-    public Long getId() {
+    public String getId() {
         return Id;
     }
 
-
-    public void setId(Long id) {
+    public void setId(String id) {
         Id = id;
     }
 

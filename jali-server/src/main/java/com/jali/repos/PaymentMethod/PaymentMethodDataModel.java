@@ -1,31 +1,34 @@
 package com.jali.repos.PaymentMethod;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-
 import java.io.Serializable;
 
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
+
 @Entity
-public class PaymentMethodDataModel implements Serializable{
+@Table(name = "Payment Method")
+public class PaymentMethodDataModel implements Serializable {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    Long Id;
+    String Id;
+
     String name;
 
-    public PaymentMethodDataModel(){}
+    public PaymentMethodDataModel() {
+    }
 
-    public PaymentMethodDataModel(String name) {
+    public PaymentMethodDataModel(String id, String name) {
+        Id = id;
         this.name = name;
     }
 
-    public Long getId() {
+    public String getId() {
         return Id;
+
     }
 
-    public void setId(Long id) {
+    public void setId(String id) {
         Id = id;
     }
 
@@ -36,9 +39,5 @@ public class PaymentMethodDataModel implements Serializable{
     public void setName(String name) {
         this.name = name;
     }
-
-    
-    
-    
 
 }

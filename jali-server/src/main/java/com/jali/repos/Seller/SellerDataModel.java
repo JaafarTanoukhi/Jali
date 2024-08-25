@@ -1,124 +1,99 @@
 package com.jali.repos.Seller;
 
-import java.io.Serializable;
-
-
+import com.jali.repos.Account.AccountDataModel;
 
 import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.Table;
 
 @Entity
-public class SellerDataModel implements Serializable{
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    Long Id;
-    String companyAddress;
+@Table(name = "Seller")
+public class SellerDataModel extends AccountDataModel {
+
     String imageUrl;
     String brandName;
     Boolean isTrusted;
     Integer avreageProductRating;
+    String companyAddress;
     String companyEmail;
     String companyName;
 
-    public SellerDataModel(){}
+    public SellerDataModel() {
+        super();
+    }
 
-    public SellerDataModel(String companyAddress, String imageUrl, String brandName, boolean isTrusted,
-            Integer avreageProductRating, String companyEmail, String companyName) {
-
-
-        this.companyAddress = companyAddress;
+    public SellerDataModel(String Id, String email, String username, String hashedPassword, String id, String imageUrl, String brandName, Boolean isTrusted, Integer avreageProductRating, String companyAddress, String companyEmail, String companyName) {
+        super(Id, email, username, hashedPassword);
         this.imageUrl = imageUrl;
         this.brandName = brandName;
         this.isTrusted = isTrusted;
         this.avreageProductRating = avreageProductRating;
+        this.companyAddress = companyAddress;
         this.companyEmail = companyEmail;
         this.companyName = companyName;
-        
     }
-
-
-    public Long getId() {
-        return Id;
-    }
-
-
-    public void setId(Long id) {
-        Id = id;
-    }
-
 
     public String getCompanyAddress() {
         return companyAddress;
     }
 
-
     public void setCompanyAddress(String companyAddress) {
         this.companyAddress = companyAddress;
     }
-
 
     public String getImage() {
         return imageUrl;
     }
 
-
     public void setImage(String image) {
         this.imageUrl = image;
     }
-
 
     public String getBrandName() {
         return brandName;
     }
 
-
     public void setBrandName(String brandName) {
         this.brandName = brandName;
     }
-
 
     public Boolean getIsTrusted() {
         return isTrusted;
     }
 
-
     public void setIsTrusted(Boolean isTrusted) {
         this.isTrusted = isTrusted;
     }
-
 
     public Integer getAvreageProductRating() {
         return avreageProductRating;
     }
 
-
     public void setAvreageProductRating(Integer avreageProductRating) {
         this.avreageProductRating = avreageProductRating;
     }
-
 
     public String getCompanyEmail() {
         return companyEmail;
     }
 
-
     public void setCompanyEmail(String companyEmail) {
         this.companyEmail = companyEmail;
     }
-
 
     public String getCompanyName() {
         return companyName;
     }
 
-
     public void setCompanyName(String companyName) {
         this.companyName = companyName;
     }
 
+    public String getImageUrl() {
+        return imageUrl;
+    }
 
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
+    }
 
-    
 }

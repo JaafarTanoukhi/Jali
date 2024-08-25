@@ -2,32 +2,45 @@ package com.jali.repos.Account;
 
 import java.io.Serializable;
 
+import jakarta.persistence.DiscriminatorColumn;
+import jakarta.persistence.DiscriminatorType;
 import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.Inheritance;
+import jakarta.persistence.InheritanceType;
+import jakarta.persistence.Table;
+
 @Entity
-public class AccountDataModel implements Serializable {
+@Table(name = "Account")
+@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
+@DiscriminatorColumn(discriminatorType = DiscriminatorType.STRING, name = "accountType")
+public abstract class AccountDataModel implements Serializable {
+    
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    Long Id;
-    String email;
-    String username;
-    String hashedPassword;
+    public String Id;
+    public String email;
+    public String username;
+    public String hashedPassword;
+    
 
     public AccountDataModel(){}
 
-    public AccountDataModel(String email, String username, String hashedPassword) {
+    
+
+
+    public AccountDataModel(String id, String email, String username, String hashedPassword) {
+        Id = id;
         this.email = email;
         this.username = username;
         this.hashedPassword = hashedPassword;
     }
 
-    public Long getId() {
+
+    public String getId() {
         return Id;
     }
 
-    public void setId(Long id) {
+    public void setId(String id) {
         Id = id;
     }
 
@@ -35,26 +48,25 @@ public class AccountDataModel implements Serializable {
         return email;
     }
 
-    public void setEmail(String email) {
-        email = email;
-    }
-
     public String getUsername() {
         return username;
-    }
-
-    public void setUsername(String username) {
-        username = username;
     }
 
     public String getHashedPassword() {
         return hashedPassword;
     }
 
-    public void setHashedPassword(String hashedPassword) {
-        hashedPassword = hashedPassword;
+    public void setEmail(String email) {
+        this.email = email;
     }
 
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public void setHashedPassword(String hashedPassword) {
+        this.hashedPassword = hashedPassword;
+    }
     
 
 

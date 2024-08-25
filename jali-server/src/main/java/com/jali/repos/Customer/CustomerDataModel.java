@@ -1,30 +1,28 @@
 package com.jali.repos.Customer;
 
+import com.jali.repos.Account.AccountDataModel;
+
 import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import java.io.Serializable;
+import jakarta.persistence.Table;
 
 
 @Entity
-public class CustomerDataModel implements Serializable {
+@Table(name = "Customer")
+public class CustomerDataModel extends AccountDataModel {
+    public CustomerDataModel() {super();}
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    Long Id;
-
-    public CustomerDataModel() {}
-
-    public Long getId() {
-        return Id;
-    }
-
-    public void setId(Long id) {
+    
+    
+    
+    public CustomerDataModel(String id) {
         Id = id;
     }
 
-    
 
+
+
+    public CustomerDataModel(String accountId, String email, String username, String hashedPassword) {
+        super(accountId, email, username, hashedPassword);
+    }
     
 }

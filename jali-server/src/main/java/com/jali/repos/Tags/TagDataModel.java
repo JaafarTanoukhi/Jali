@@ -3,16 +3,18 @@ package com.jali.repos.Tags;
 import java.io.Serializable;
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.Table;
 
 @Entity
-public class TagsDataModel implements Serializable{
+@Table(name = "Tag")
+public class TagDataModel implements Serializable{
     
     String name;
 
     
-    public TagsDataModel(){}
+    public TagDataModel(){}
 
-    public TagsDataModel(String name) {
+    public TagDataModel(String name) {
         this.name = name;
     }
 

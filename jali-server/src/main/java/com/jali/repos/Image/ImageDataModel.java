@@ -1,8 +1,10 @@
 package com.jali.repos.Image;
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.Table;
 
 @Entity
+@Table(name = "Image")
 public class ImageDataModel {
     String imageUrl;
 

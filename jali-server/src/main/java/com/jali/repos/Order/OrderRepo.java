@@ -1,8 +1,9 @@
-package com.jali.repos.Orders;
+package com.jali.repos.Order;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface OrdersRepo extends JpaRepository<OrdersDataModel,Long> {
+
+public interface OrderRepo extends JpaRepository<OrderDataModel,Long> {
 
     
 } 

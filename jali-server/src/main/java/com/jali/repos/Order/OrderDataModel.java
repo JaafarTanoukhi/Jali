@@ -1,38 +1,57 @@
-package com.jali.repos.Orders;
+package com.jali.repos.Order;
+
 import java.io.Serializable;
 
 import jakarta.persistence.Embeddable;
 import jakarta.persistence.Embedded;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
+import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
+import jakarta.persistence.Table;
 
-
-
-public class OrdersDataModel implements Serializable  {
-
+@Entity
+@Table(name = "Order")
+public class OrderDataModel implements Serializable {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    Long Id;
+    String Id;
+
     Integer fullTotal;
+
     @Embedded
     Address address;
 
+    public OrderDataModel() {
+    }
 
-    
-    public OrdersDataModel(){}
-
-    public OrdersDataModel(Integer fullTotal, Address address) {
+    public OrderDataModel(String id, Integer fullTotal, Address address) {
+        Id = id;
         this.fullTotal = fullTotal;
         this.address = address;
     }
 
+    public String getId() {
+        return Id;
+    }
 
+    public void setId(String id) {
+        Id = id;
+    }
 
+    public Integer getFullTotal() {
+        return fullTotal;
+    }
 
+    public void setFullTotal(Integer fullTotal) {
+        this.fullTotal = fullTotal;
+    }
 
+    public Address getAddress() {
+        return address;
+    }
 
+    public void setAddress(Address address) {
+        this.address = address;
+    }    
 
     @Embeddable
     public class Address {
@@ -42,7 +61,6 @@ public class OrdersDataModel implements Serializable  {
         String building;
         String extraDeliveryDetails;
 
-
         public Address(String country, String city, String building, String extraDeliveryDetails) {
             this.country = country;
             this.city = city;
@@ -50,53 +68,37 @@ public class OrdersDataModel implements Serializable  {
             this.extraDeliveryDetails = extraDeliveryDetails;
         }
 
-
         public String getCountry() {
             return country;
         }
-
 
         public void setCountry(String country) {
             this.country = country;
         }
 
-
         public String getCity() {
             return city;
         }
-
 
         public void setCity(String city) {
             this.city = city;
         }
 
-
         public String getBuilding() {
             return building;
         }
-
 
         public void setBuilding(String building) {
             this.building = building;
         }
 
-
         public String getExtraDeliveryDetails() {
             return extraDeliveryDetails;
         }
 
-
         public void setExtraDeliveryDetails(String extraDeliveryDetails) {
             this.extraDeliveryDetails = extraDeliveryDetails;
         }
-        
-        
-    
-        
+
     }
-   
-    
 }
-
-
-

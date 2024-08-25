@@ -1,30 +1,30 @@
 package com.jali.repos.WhishList;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
 import java.io.Serializable;
+
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
 
 
 @Entity
+@Table(name = "Whishlist")
 public class WhishListDataModel implements Serializable {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    Long Id;
+    String Id;
 
     public WhishListDataModel() {}
 
-    public Long getId() {
+    public WhishListDataModel(String id) {
+        Id = id;
+    }
+    public String getId() {
         return Id;
     }
 
-    public void setId(Long id) {
+    public void setId(String id) {
         Id = id;
     }
-
-    
-
     
 }
