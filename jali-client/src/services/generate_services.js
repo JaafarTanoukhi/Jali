@@ -1,9 +1,10 @@
 const fs = require('fs');
 
 
-const ENDPOINT_URL = 'http://localhost:8080/api/metadata/describe';
+const SERVER_URL= 'http://localhost:8080';
+const METADATA_ENDPOINT_URL = SERVER_URL + '/api/metadata/describe';
 
-fetch(ENDPOINT_URL, {
+fetch(METADATA_ENDPOINT_URL, {
     method : 'get',
     mode : 'cors',
 }).then((response)=>{
@@ -30,7 +31,7 @@ async function generateModules(metadata){
 }
 
 async function createTsModule(apiDir){
-    const path = './' + apiDir.dirName +'.ts';
+    const path = './src/services/' + apiDir.dirName +'.ts';
     fs.writeFileSync(path, generateSourceCode(apiDir));
     console.log('Created file : ' + path);
     
@@ -43,6 +44,7 @@ function generateSourceCode(apiDir){
     source += addComment('THIS IS A GENERATED FILE, DO NOT MODIFY', 2);
     source += addComment('This is only to avoid an error in case no endpoint was generated or exported')
     source += declareConst('useless',0,true);
+    source += declareConst('SERVER_URL', SERVER_URL);
     source += newLines(2);
     
     source += generateEndpointFunctions(apiDir.controller);
@@ -74,7 +76,7 @@ function generateEndpointFunc(baseEndpointVarName, endpoint){
     return `export async function ${endpoint.functionName}(${parameters}):${toTsType(endpoint.returnType)}
     {
         const obj = {${parameterNames}};
-        const response = await fetch(\`\${${baseEndpointVarName.replace(/{/g, '${')}}${endpoint.url.replace(/{/g, '${')}\`,{
+        const response = await fetch(\`\${SERVER_URL}\${${baseEndpointVarName.replace(/{/g, '${')}}${endpoint.url.replace(/{/g, '${')}\`,{
             
         method : '${endpoint.method}',
         mode : 'cors'
@@ -140,6 +142,7 @@ function generateModelsInterfaces(models){
     
     for(const objInterface of models.interfaces){
         source += generateInterface(objInterface);
+        source += newLines(2);
     }
     return source;
 }
@@ -147,7 +150,7 @@ function generateModelsInterfaces(models){
 function generateInterface(objInterface){
     let source = '';
 
-    const fields = objInterface.fields.map((field)=>`${field.fieldName} : ${field.fieldType};`).join(';\n');
+    const fields = objInterface.fields.map((field)=>`${field.fieldName} : ${field.fieldType}`).join(';\n\t\t');
 
     source += 
     `interface ${objInterface.interfaceName}{

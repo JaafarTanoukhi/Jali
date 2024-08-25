@@ -2,6 +2,7 @@
 
 //This is only to avoid an error in case no endpoint was generated or exported;
 export const useless = 0;
+const SERVER_URL = 'http://localhost:8080';
 
 
 const CONTROLLER_BASE_ENDPOINT = 'placeholder';
@@ -10,3 +11,4 @@ const CONTROLLER_BASE_ENDPOINT = 'placeholder';
 interface ProductPanelModels{
         
     }
+

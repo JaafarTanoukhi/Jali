@@ -2,6 +2,7 @@
   "name": "jali-frontend",
   "version": "0.0.0",
   "scripts": {
+    "gen-services" : "node src/services/generate_services.js",
     "ng": "ng",
     "start": "ng serve",
     "build": "ng build",

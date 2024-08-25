@@ -10,5 +10,6 @@ public class AuthModels {
     public class SingnupResponse{
         public String name;
         public boolean hasSignedup;
+        
     }
 }
