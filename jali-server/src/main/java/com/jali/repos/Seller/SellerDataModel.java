@@ -1,12 +1,16 @@
 package com.jali.repos.Seller;
 
 import com.jali.repos.Account.AccountDataModel;
+import com.jali.repos.Product.ProductDataModel;
 
+import jakarta.persistence.DiscriminatorValue;
 import jakarta.persistence.Entity;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
+import java.util.*;
 
 @Entity
-@Table(name = "Seller")
+@DiscriminatorValue("Seller")
 public class SellerDataModel extends AccountDataModel {
 
     String imageUrl;
@@ -16,6 +20,10 @@ public class SellerDataModel extends AccountDataModel {
     String companyAddress;
     String companyEmail;
     String companyName;
+
+    @OneToMany
+    ArrayList<ProductDataModel> products;
+
 
     public SellerDataModel() {
         super();

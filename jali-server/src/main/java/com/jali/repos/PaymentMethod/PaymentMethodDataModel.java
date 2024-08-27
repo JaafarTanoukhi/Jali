@@ -2,8 +2,11 @@ package com.jali.repos.PaymentMethod;
 
 import java.io.Serializable;
 
+import com.jali.repos.Order.OrderDataModel;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 
 @Entity
@@ -14,6 +17,10 @@ public class PaymentMethodDataModel implements Serializable {
     String Id;
 
     String name;
+
+
+    @ManyToOne
+    OrderDataModel order;
 
     public PaymentMethodDataModel() {
     }
