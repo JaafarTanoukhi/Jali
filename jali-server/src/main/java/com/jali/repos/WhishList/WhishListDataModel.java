@@ -1,64 +1,77 @@
 package com.jali.repos.WhishList;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+
+import com.jali.repos.Customer.CustomerDataModel;
+import com.jali.repos.Product.ProductDataModel;
 
 import jakarta.persistence.Embeddable;
 import jakarta.persistence.EmbeddedId;
 import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
-import java.util.*;
-
-import com.jali.repos.Customer.CustomerDataModel;
-import com.jali.repos.Product.ProductDataModel;
 
 @Entity
 @Table(name = "Whishlist")
 public class WhishListDataModel implements Serializable {
 
     @EmbeddedId
-    WhishlistId Id;
+    private WishlistId Id;
 
     @OneToMany
-    ArrayList<ProductDataModel> products;
-
-    @OneToOne
-    @JoinColumn(insertable = false, updatable = false)
-    CustomerDataModel customer;
+    private ArrayList<ProductDataModel> products;
 
     public WhishListDataModel() {}
 
-    public WhishListDataModel(CustomerDataModel customer) {
-        this.customer=customer;
-        this.Id= new WhishlistId(customer.getId(), null);
-
+    // Constructor that takes a WhishlistId
+    public WhishListDataModel(WishlistId id) {
+        this.Id = id;
     }
-   
 
+    // Getters and Setters
+    public WishlistId getId() {
+        return Id;
+    }
+
+    public void setId(WishlistId id) {
+        this.Id = id;
+    }
+
+    public ArrayList<ProductDataModel> getProducts() {
+        return products;
+    }
+
+    public void setProducts(ArrayList<ProductDataModel> products) {
+        this.products = products;
+    }
 
     @Embeddable
-    public static class WhishlistId implements Serializable{
-
-        String CustomerId;
-        Long WhishlistId;
-
-        public WhishlistId(String CustomerId, Long WhishlistId){
-            this.CustomerId = CustomerId;
-            this.WhishlistId = WhishlistId;
+    public static class WishlistId implements Serializable {
+    
+        @OneToOne
+        @JoinColumn(insertable = false, updatable = false)
+        private CustomerDataModel customer; // Should be a CustomerDataModel, not a String
+        private Long wishlistId;
+    
+        public WishlistId() {}
+    
+        public WishlistId(CustomerDataModel customer, Long wishlistId) {
+            this.customer = customer;
+            this.wishlistId = wishlistId;
         }
-
+    
         @Override
         public int hashCode() {
             final int prime = 31;
             int result = 1;
-            result = prime * result + ((CustomerId == null) ? 0 : CustomerId.hashCode());
-            result = prime * result + ((WhishlistId == null) ? 0 : WhishlistId.hashCode());
+            result = prime * result + ((customer == null) ? 0 : customer.hashCode()); // Use customer object
+            result = prime * result + ((wishlistId == null) ? 0 : wishlistId.hashCode());
             return result;
         }
-
+    
         @Override
         public boolean equals(Object obj) {
             if (this == obj)
@@ -67,38 +80,36 @@ public class WhishListDataModel implements Serializable {
                 return false;
             if (getClass() != obj.getClass())
                 return false;
-            WhishlistId other = (WhishlistId) obj;
-            if (CustomerId == null) {
-                if (other.CustomerId != null)
+            WishlistId other = (WishlistId) obj;
+            if (customer == null) {
+                if (other.customer != null)
                     return false;
-            } else if (!CustomerId.equals(other.CustomerId))
+            } else if (!customer.equals(other.customer))
                 return false;
-            if (WhishlistId == null) {
-                if (other.WhishlistId != null)
+            if (wishlistId == null) {
+                if (other.wishlistId != null)
                     return false;
-            } else if (!WhishlistId.equals(other.WhishlistId))
+            } else if (!wishlistId.equals(other.wishlistId))
                 return false;
             return true;
         }
-
-        public String getCustomerId() {
-            return CustomerId;
+    
+        // Getters and Setters
+        public CustomerDataModel getCustomer() {
+            return customer;
         }
-
-        public void setCustomerId(String customerId) {
-            CustomerId = customerId;
+    
+        public void setCustomer(CustomerDataModel customer) {
+            this.customer = customer;
         }
-
-        public Long getWhishlistId() {
-            return WhishlistId;
+    
+        public Long getWishlistId() {
+            return wishlistId;
         }
-
-        public void setWhishlistId(Long whishlistId) {
-            WhishlistId = whishlistId;
+    
+        public void setWishlistId(Long wishlistId) {
+            this.wishlistId = wishlistId;
         }
-
-        
-
     }
     
 }

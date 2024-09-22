@@ -2,8 +2,10 @@ package com.jali.repos.Product;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
+import jakarta.persistence.JoinColumns;
 import jakarta.persistence.ManyToOne;
 
 import com.jali.repos.Image.ImageDataModel;
@@ -31,35 +33,38 @@ public class ProductDataModel implements Serializable  {
     private String name;
     private Integer price;
 
-    @OneToMany(mappedBy = "Product", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany
     private Set<TagDataModel> tags;
 
     
-    @OneToMany( mappedBy = "product", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany
     private Set<ImageDataModel> images;
 
-    @ManyToOne
-    @JoinColumn(name = "genre_id") 
-    private GenreDataModel genre;
+    // @ManyToOne(fetch = FetchType.LAZY) 
+    // @JoinColumn 
+    // private GenreDataModel genre;
     
-    @ManyToOne
-    @JoinColumn(name = "seller_id")
-    private SellerDataModel seller;
+    // @ManyToOne(fetch = FetchType.LAZY) 
+    // @JoinColumn
+    // private SellerDataModel seller;
 
-    @ManyToOne
-    @JoinColumn(name = "order_id")
-    private OrderDataModel order;
+    // @ManyToOne(fetch = FetchType.LAZY) 
+    // @JoinColumn
+    // private OrderDataModel order;
 
-    @ManyToOne
-    @JoinColumn(name = "whishList_id")
-    private WhishListDataModel whishlist;
+    // @ManyToOne(fetch = FetchType.LAZY) 
+    // @JoinColumn
+    // private WhishListDataModel whishlist;
 
-    @ManyToOne
-    @JoinColumn(name = "cart_id")
-    private CartDataModel cart;
+    // @ManyToOne(fetch = FetchType.LAZY) 
+    // @JoinColumn(nullable = false) 
+    // private CartDataModel cart;
     
-    @ManyToOne
-    @JoinColumn(name = "category_id")
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumns({
+        @JoinColumn(name = "category_id", referencedColumnName="category_id"),
+        @JoinColumn(name="genre_id", referencedColumnName="genre_id")
+    })  
     private CategoryDataModel categoryDataModel;
 
     public ProductDataModel(Long id, String name,Integer price) {
@@ -101,8 +106,6 @@ public class ProductDataModel implements Serializable  {
         images.remove(image);
 
     }
-
-
 
     public Long getId() {
         return id;
