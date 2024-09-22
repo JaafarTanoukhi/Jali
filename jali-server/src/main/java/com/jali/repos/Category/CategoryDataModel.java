@@ -1,19 +1,19 @@
 package com.jali.repos.Category;
 
 import java.io.Serializable;
+import java.util.List;
 
 import com.jali.repos.Genre.GenreDataModel;
 import com.jali.repos.Product.ProductDataModel;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Embeddable;
 import jakarta.persistence.EmbeddedId;
 import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
-import java.util.*;
 
 @Entity
 @Table(name = "Category")
@@ -21,22 +21,19 @@ public class CategoryDataModel implements Serializable {
 
     @EmbeddedId
     CategoryId Id;
+
     String name;
 
-    @ManyToOne
-    @JoinColumn(insertable = false, updatable = false)
-    GenreDataModel genre;
-
     @OneToMany
-    ArrayList<ProductDataModel> products;
+    List<ProductDataModel> products;
+
 
     public CategoryDataModel() {
     }
 
-    public CategoryDataModel(String name, GenreDataModel genre) {
-        this.Id = new CategoryId(null, genre.getId());
+    public CategoryDataModel(CategoryId id, String name) {
+        this.Id = id;
         this.name = name;
-        this.genre = genre;
     }
 
     public String getName() {
@@ -47,50 +44,45 @@ public class CategoryDataModel implements Serializable {
         this.name = name;
     }
 
+    public CategoryId getCategoryId(){
+        return this.Id;
+    }
+
+    public void setCategoryId(CategoryId id){
+        this.Id = id;
+    }
+
+    public List<ProductDataModel> getProducts(){
+        return this.products;
+    }
+
     @Embeddable
     public static class CategoryId implements Serializable {
 
+        @ManyToOne
+        @JoinColumn(name="genre_id", insertable = false, updatable = false)
+        private GenreDataModel genre;
+
+        @Column(name = "category_id")
         private Long categoryId;
-        private String genreId;
 
-        CategoryId() {
+        // Default constructor (required by JPA)
+        public CategoryId() {
         }
 
-        CategoryId(Long categoryId, String genreId) {
-
+        // Parameterized constructor
+        public CategoryId(GenreDataModel genre, Long categoryId) {
+            this.genre = genre;
             this.categoryId = categoryId;
-            this.genreId = genreId;
         }
 
-        @Override
-        public int hashCode() {
-            final int prime = 31;
-            int result = 1;
-            result = prime * result + ((categoryId == null) ? 0 : categoryId.hashCode());
-            result = prime * result + ((genreId == null) ? 0 : genreId.hashCode());
-            return result;
+        // Getters and Setters
+        public GenreDataModel getGenre() {
+            return genre;
         }
 
-        @Override
-        public boolean equals(Object obj) {
-            if (this == obj)
-                return true;
-            if (obj == null)
-                return false;
-            if (getClass() != obj.getClass())
-                return false;
-            CategoryId other = (CategoryId) obj;
-            if (categoryId == null) {
-                if (other.categoryId != null)
-                    return false;
-            } else if (!categoryId.equals(other.categoryId))
-                return false;
-            if (genreId == null) {
-                if (other.genreId != null)
-                    return false;
-            } else if (!genreId.equals(other.genreId))
-                return false;
-            return true;
+        public void setGenre(GenreDataModel genre) {
+            this.genre = genre;
         }
 
         public Long getCategoryId() {
@@ -101,14 +93,38 @@ public class CategoryDataModel implements Serializable {
             this.categoryId = categoryId;
         }
 
-        public String getGenreId() {
-            return genreId;
+        // Override equals and hashCode
+        @Override
+        public boolean equals(Object obj) {
+            if (this == obj)
+                return true;
+            if (obj == null || getClass() != obj.getClass())
+                return false;
+
+            CategoryId other = (CategoryId) obj;
+            if (categoryId == null) {
+                if (other.categoryId != null)
+                    return false;
+            } else if (!categoryId.equals(other.categoryId))
+                return false;
+
+            if (genre == null) {
+                if (other.genre != null)
+                    return false;
+            } else if (!genre.equals(other.genre))
+                return false;
+
+            return true;
         }
 
-        public void setGenreId(String genreId) {
-            this.genreId = genreId;
+        @Override
+        public int hashCode() {
+            final int prime = 31;
+            int result = 1;
+            result = prime * result + ((categoryId == null) ? 0 : categoryId.hashCode());
+            result = prime * result + ((genre == null) ? 0 : genre.hashCode());
+            return result;
         }
-
     }
 
 }

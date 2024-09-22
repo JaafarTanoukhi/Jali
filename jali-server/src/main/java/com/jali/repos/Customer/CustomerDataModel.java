@@ -2,12 +2,11 @@ package com.jali.repos.Customer;
 
 import com.jali.repos.Account.AccountDataModel;
 import com.jali.repos.Cart.CartDataModel;
-import com.jali.repos.WhishList.WhishListDataModel;
+import com.jali.repos.WishList.WishListDataModel;
 
 import jakarta.persistence.DiscriminatorValue;
 import jakarta.persistence.Entity;
 import jakarta.persistence.OneToOne;
-import jakarta.persistence.Table;
 
 
 @Entity
@@ -16,7 +15,7 @@ public class CustomerDataModel extends AccountDataModel {
 
 
     @OneToOne
-    WhishListDataModel whishlist;
+    WishListDataModel wishlist;
 
     @OneToOne
     CartDataModel cart;

@@ -67,7 +67,5 @@ public abstract class AccountDataModel implements Serializable {
     public void setHashedPassword(String hashedPassword) {
         this.hashedPassword = hashedPassword;
     }
-    
-
 
 }

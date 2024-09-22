@@ -1,29 +1,32 @@
 package com.jali.repos.Genre;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 
-import org.hibernate.mapping.List;
+import com.jali.repos.Category.CategoryDataModel;
+import com.jali.repos.Product.ProductDataModel;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
-
-import com.jali.repos.Category.CategoryDataModel;
-import com.jali.repos.Product.ProductDataModel;
-import java.util.*;;
+;
 
 @Entity
 @Table(name = "Genre")
 public class GenreDataModel implements Serializable {
     @Id
+    @Column(name = "genre_id")
     String Id;
+
     String name;
-    @OneToMany(mappedBy = "genre")
+    
+    @OneToMany
     private ArrayList<ProductDataModel> products;
 
     @OneToMany
-    private ArrayList<CategoryDataModel> categorys;
+    private ArrayList<CategoryDataModel> categories;
 
 
 

@@ -6,11 +6,12 @@ import com.jali.repos.Order.OrderDataModel;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 
 @Entity
-@Table(name = "Payment Method")
+@Table(name = "Payment_Method")
 public class PaymentMethodDataModel implements Serializable {
 
     @Id
@@ -20,6 +21,7 @@ public class PaymentMethodDataModel implements Serializable {
 
 
     @ManyToOne
+    @JoinColumn
     OrderDataModel order;
 
     public PaymentMethodDataModel() {
