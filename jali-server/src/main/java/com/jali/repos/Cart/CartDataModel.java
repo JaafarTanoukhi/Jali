@@ -6,6 +6,7 @@ import java.util.List;
 import com.jali.repos.Customer.CustomerDataModel;
 import com.jali.repos.Product.ProductDataModel;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Embeddable;
 import jakarta.persistence.EmbeddedId;
 import jakarta.persistence.Entity;
@@ -39,9 +40,10 @@ public class CartDataModel implements Serializable {
     public static class CartId implements Serializable {
         
         @OneToOne
-        @JoinColumn(insertable = false, updatable = false)
+        @JoinColumn(name = "customer_id", insertable = false, updatable = false)
         private CustomerDataModel customer;
     
+        @Column(name = "cart_id")
         private Long cartID;
     
         // Default constructor (required by JPA)

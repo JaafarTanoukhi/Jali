@@ -1,4 +1,4 @@
-package com.jali.repos.WhishList;
+package com.jali.repos.WishList;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import com.jali.repos.Customer.CustomerDataModel;
 import com.jali.repos.Product.ProductDataModel;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Embeddable;
 import jakarta.persistence.EmbeddedId;
 import jakarta.persistence.Entity;
@@ -15,8 +16,8 @@ import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 
 @Entity
-@Table(name = "Whishlist")
-public class WhishListDataModel implements Serializable {
+@Table(name = "Wishlist")
+public class WishListDataModel implements Serializable {
 
     @EmbeddedId
     private WishlistId Id;
@@ -24,10 +25,10 @@ public class WhishListDataModel implements Serializable {
     @OneToMany
     private ArrayList<ProductDataModel> products;
 
-    public WhishListDataModel() {}
+    public WishListDataModel() {}
 
     // Constructor that takes a WhishlistId
-    public WhishListDataModel(WishlistId id) {
+    public WishListDataModel(WishlistId id) {
         this.Id = id;
     }
 
@@ -52,8 +53,10 @@ public class WhishListDataModel implements Serializable {
     public static class WishlistId implements Serializable {
     
         @OneToOne
-        @JoinColumn(insertable = false, updatable = false)
-        private CustomerDataModel customer; // Should be a CustomerDataModel, not a String
+        @JoinColumn(name="customer_id", insertable = false, updatable = false)
+        private CustomerDataModel customer;
+        
+        @Column(name = "wishlist_id")
         private Long wishlistId;
     
         public WishlistId() {}

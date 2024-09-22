@@ -1,20 +1,20 @@
 package com.jali.repos.Order;
 
 import java.io.Serializable;
+import java.util.List;
+
+import com.jali.repos.PaymentMethod.PaymentMethodDataModel;
+import com.jali.repos.Product.ProductDataModel;
 
 import jakarta.persistence.Embeddable;
 import jakarta.persistence.Embedded;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
-import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
-import java.util.*;
-import com.jali.repos.Product.ProductDataModel;
-import com.jali.repos.PaymentMethod.PaymentMethodDataModel;
 
 @Entity
-@Table(name = "Order")
+@Table(name = "Orders")
 public class OrderDataModel implements Serializable {
 
     @Id
@@ -26,10 +26,10 @@ public class OrderDataModel implements Serializable {
     Address address;
 
     @OneToMany
-    ArrayList<ProductDataModel> products;
+    List<ProductDataModel> products;
 
     @OneToMany
-    ArrayList<PaymentMethodDataModel> PaymentMethods;
+    List<PaymentMethodDataModel> paymentMethods;
 
     public OrderDataModel() {
     }
@@ -71,6 +71,8 @@ public class OrderDataModel implements Serializable {
         String city;
         String building;
         String extraDeliveryDetails;
+
+        public Address(){}
 
 
         public Address(String country, String city, String building, String extraDeliveryDetails) {

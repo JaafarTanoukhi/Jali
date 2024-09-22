@@ -12,11 +12,14 @@ import com.jali.repos.Image.ImageDataModel;
 import com.jali.repos.Order.OrderDataModel;
 import com.jali.repos.Seller.SellerDataModel;
 import com.jali.repos.Tags.TagDataModel;
-import com.jali.repos.WhishList.WhishListDataModel;
+import com.jali.repos.WishList.WishListDataModel;
 
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import java.util.*;
+
+import org.hibernate.annotations.JoinColumnOrFormula;
+
 import java.io.Serializable;
 
 import com.jali.repos.Cart.CartDataModel;
@@ -40,25 +43,31 @@ public class ProductDataModel implements Serializable  {
     @OneToMany
     private Set<ImageDataModel> images;
 
-    // @ManyToOne(fetch = FetchType.LAZY) 
-    // @JoinColumn 
-    // private GenreDataModel genre;
+    @ManyToOne(fetch = FetchType.LAZY) 
+    @JoinColumn 
+    private GenreDataModel genre;
     
-    // @ManyToOne(fetch = FetchType.LAZY) 
-    // @JoinColumn
-    // private SellerDataModel seller;
+    @ManyToOne(fetch = FetchType.LAZY) 
+    @JoinColumn
+    private SellerDataModel seller;
 
-    // @ManyToOne(fetch = FetchType.LAZY) 
-    // @JoinColumn
-    // private OrderDataModel order;
+    @ManyToOne(fetch = FetchType.LAZY) 
+    @JoinColumn
+    private OrderDataModel order;
 
-    // @ManyToOne(fetch = FetchType.LAZY) 
-    // @JoinColumn
-    // private WhishListDataModel whishlist;
+    @ManyToOne(fetch = FetchType.LAZY) 
+    @JoinColumns({
+        @JoinColumn(name = "wishlist_id", referencedColumnName = "wishlist_id"),
+        @JoinColumn(name = "cart_customer_id", referencedColumnName = "customer_id")
+    })
+    private WishListDataModel wishlist;
 
-    // @ManyToOne(fetch = FetchType.LAZY) 
-    // @JoinColumn(nullable = false) 
-    // private CartDataModel cart;
+    @JoinColumns({
+        @JoinColumn(name = "cart_id", referencedColumnName = "cart_id"),
+        @JoinColumn(name = "wishlist_customer_id", referencedColumnName = "customer_id")
+    })
+    @ManyToOne(fetch = FetchType.LAZY) 
+    private CartDataModel cart;
     
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumns({

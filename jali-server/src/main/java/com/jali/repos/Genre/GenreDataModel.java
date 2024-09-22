@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import com.jali.repos.Category.CategoryDataModel;
 import com.jali.repos.Product.ProductDataModel;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
@@ -16,6 +17,7 @@ import jakarta.persistence.Table;
 @Table(name = "Genre")
 public class GenreDataModel implements Serializable {
     @Id
+    @Column(name = "genre_id")
     String Id;
 
     String name;
